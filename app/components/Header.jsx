@@ -98,7 +98,7 @@ function Header() {
             <SpeakerXMarkIcon className='text-white/50 w-6 h-6' />
           )}
         </button>
-        {isConnected && (
+        {isConnected && authData && (
           <button
             onClick={() => {
               setGameSettings({
@@ -143,6 +143,7 @@ function Header() {
         }
         important
         title='Sign In'
+        hideX={status === 'signing-message' || status === 'logging-in'}
       >
         <div className='flex flex-col gap-2 pt-2'>
           {status === 'idle' &&

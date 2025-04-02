@@ -80,6 +80,11 @@ function ProfileModal() {
         </div>
         <button
           onClick={() => {
+            setGameSettings({
+              ...gameSettings,
+              profileModalOpen: false,
+            });
+            localStorage.clear();
             disconnect();
           }}
           className='rounded-lg mt-auto button button-error'
