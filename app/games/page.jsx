@@ -1,6 +1,5 @@
 'use client';
 import { memo, useCallback } from 'react';
-import { useMineGame } from '@/app/hooks/useMineGame';
 import { useSetState } from '@mantine/hooks';
 import Mines from '../components/mines/Mines';
 import { getBetPayload, getResultFromResponse } from './functions';
@@ -59,6 +58,7 @@ function page() {
     }
     updateBalance();
   }, [betData, authData]);
+
   return (
     <>
       <Mines

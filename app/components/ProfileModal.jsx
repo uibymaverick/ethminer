@@ -2,9 +2,13 @@ import { useAccount, useDisconnect } from 'wagmi';
 import Modal from './Modal';
 import CopyButton from './CopyButton';
 import { useGameContext } from '../games/layout';
-import { ArrowPathIcon } from '@heroicons/react/24/solid';
-import { randomId } from '@mantine/hooks';
-
+import {
+  ArrowPathIcon,
+  MusicalNoteIcon,
+  SpeakerWaveIcon,
+  SpeakerXMarkIcon,
+} from '@heroicons/react/24/solid';
+import crypto from 'node:crypto';
 function ProfileModal() {
   const { address, isConnected } = useAccount();
   const { balance, gameSettings, setGameSettings } = useGameContext();
@@ -69,7 +73,7 @@ function ProfileModal() {
               onClick={() => {
                 setGameSettings({
                   ...gameSettings,
-                  clientSeed: randomId().slice(8, 16),
+                  clientSeed: crypto.randomBytes(8).toString('hex'),
                 });
               }}
               className='rounded-lg button'
@@ -78,6 +82,45 @@ function ProfileModal() {
             </button>
           </div>
         </div>
+        <div className='flex flex-col gap-1'>
+          <label className='block ml-2 text-sm font-semibold text-base-100'>
+            Settings
+          </label>{' '}
+          <div className='flex items-center gap-2'>
+            <button
+              onClick={() => {
+                setGameSettings({
+                  ...gameSettings,
+                  sound: !gameSettings.sound,
+                });
+              }}
+              className='rounded-lg button button-icon'
+            >
+              {gameSettings.sound ? (
+                <SpeakerWaveIcon className='text-primary w-6 h-6' />
+              ) : (
+                <SpeakerXMarkIcon className='text-white/50 w-6 h-6' />
+              )}
+            </button>
+
+            <button
+              onClick={() => {
+                setGameSettings({
+                  ...gameSettings,
+                  music: !gameSettings.music,
+                });
+              }}
+              className='rounded-lg relative button button-icon'
+            >
+              {gameSettings.music ? (
+                <MusicalNoteIcon className='text-primary w-6 h-6' />
+              ) : (
+                <MusicalNoteIcon className='text-white/50 w-6 h-6' />
+              )}
+            </button>
+          </div>
+        </div>
+
         <button
           onClick={() => {
             setGameSettings({

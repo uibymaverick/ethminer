@@ -83,21 +83,7 @@ function Header() {
             </button>
           </>
         )}
-        <button
-          onClick={() => {
-            setGameSettings({
-              ...gameSettings,
-              sound: !gameSettings.sound,
-            });
-          }}
-          className='rounded-lg button button-icon'
-        >
-          {gameSettings.sound ? (
-            <SpeakerWaveIcon className='text-primary w-6 h-6' />
-          ) : (
-            <SpeakerXMarkIcon className='text-white/50 w-6 h-6' />
-          )}
-        </button>
+
         {isConnected && authData && (
           <button
             onClick={() => {

@@ -173,7 +173,7 @@ const TokenBalance = ({
         } ${data?.formatted == 0 && 'grayscale opacity-50'}`}
       >
         {selectedToken.address === token.address && (
-          <CheckCircleIcon className='absolute left-0 top-0 w-6 h-6 text-success' />
+          <CheckCircleIcon className='absolute right-0 top-0 w-6 h-6 text-success' />
         )}
         <img
           src={token?.logoURI}

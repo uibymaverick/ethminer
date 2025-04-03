@@ -7,7 +7,7 @@ import Header from '../components/Header'
 import Notiflix from 'notiflix'
 import { apiEndPoints } from './constants'
 import { useLocalStorage } from '@mantine/hooks'
-import { randomId } from '@mantine/hooks'
+import crypto from 'node:crypto'
 const queryClient = new QueryClient()
 
 const gameContext = createContext()
@@ -20,11 +20,12 @@ function GamesLayout({ children }) {
         key: 'gameSettings',
         defaultValue: {
             sound: true,
+            music: true,
             depositWithdrawModalOpen: false,
             depositWithdrawModalType: 'deposit',
             profileModalOpen: false,
             signInModalOpen: false,
-            clientSeed: randomId().slice(8, 16),
+            clientSeed: crypto.randomBytes(8).toString('hex'),
         },
     });
 

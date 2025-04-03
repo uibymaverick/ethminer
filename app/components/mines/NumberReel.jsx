@@ -1,5 +1,10 @@
+import { useMemo } from 'react';
+
 function NumberReel({ result, active }) {
-  const multipliers = result?.multipliers || [];
+  const multipliers = useMemo(
+    () => (result?.multipliers ? [0, ...result?.multipliers] : []),
+    [result]
+  );
 
   return (
     <div
