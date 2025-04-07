@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAccount, useSendTransaction, useBalance, useToken } from 'wagmi';
+import { useAccount, useSendTransaction, useBalance } from 'wagmi';
 import { formatEther, parseEther } from 'viem';
 import Modal from './Modal';
 import { availableTokens } from '../web3/constants';
@@ -10,7 +10,7 @@ import { useGameContext } from '../games/layout';
 function DepositWithdraw() {
   const { gameSettings, setGameSettings } = useGameContext();
   const [activeTab, setActiveTab] = useState(
-    gameSettings.depositWithdrawModalType || 'deposit'
+    gameSettings.depositWithdrawModalType || 'Deposit'
   );
   const [selectedToken, setSelectedToken] = useState(availableTokens[0]);
   const [fetching, setFetching] = useState(true);
@@ -52,6 +52,7 @@ function DepositWithdraw() {
 
   return (
     <Modal
+      important
       open={gameSettings.depositWithdrawModalOpen}
       setOpen={() =>
         setGameSettings({
@@ -59,15 +60,19 @@ function DepositWithdraw() {
           depositWithdrawModalOpen: false,
         })
       }
-      title={<h1 className='text-xl font-bold'>Account</h1>}
+      title={<h1 className='text-xl font-bold'>Transactions</h1>}
     >
       <div className='w-full flex flex-col gap-4 pt-2 h-full'>
-        <div className='flex p-0.5 bg-base-100/50 rounded-2xl border-2 border-base-200'>
-          {['deposit', 'withdraw'].map((tab) => (
+        <div className='flex p-0.5 gap-0.5 bg-base-300 rounded-2xl border-2 border-base-200'>
+          {['Deposit', 'Withdraw', 'History'].map((tab, index) => (
             <button
               key={tab}
-              className={`flex-1 text-white font-semibold  rounded-xl py-3 ${
-                activeTab === tab ? 'bg-info shadow-all-xl shadow-info/50' : ''
+              className={`flex-1 text-white font-semibold py-3 ${
+                activeTab === tab
+                  ? 'bg-info shadow-all-xl shadow-info/50'
+                  : 'bg-base-200'
+              } ${
+                index === 0 ? 'rounded-l-xl' : index === 2 ? 'rounded-r-xl' : ''
               }`}
               onClick={() => setActiveTab(tab)}
             >
@@ -75,7 +80,7 @@ function DepositWithdraw() {
             </button>
           ))}
         </div>
-        {activeTab === 'deposit' && (
+        {activeTab === 'Deposit' && (
           <>
             <div className='flex flex-col gap-2'>
               <div className='flex flex-col gap-1'>

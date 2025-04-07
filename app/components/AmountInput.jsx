@@ -1,4 +1,7 @@
+import { useGameContext } from '@/app/games/layout';
+
 function AmountInput({ value, setValue, disabled }) {
+  const { balance } = useGameContext();
   return (
     <div
       style={{
@@ -19,8 +22,8 @@ function AmountInput({ value, setValue, disabled }) {
             setValue(value);
           }}
         />
-        <div className='absolute flex gap-0.5 top-0 right-0 p-1 h-full'>
-          {['1/2', '2x', '5x'].map((amount) => (
+        <div className='absolute grid grid-cols-2 gap-0.5 top-0 right-0 p-1 h-full'>
+          {['1/2', '2x', 'Min', 'Max'].map((amount) => (
             <div
               key={amount}
               onClick={() => {
@@ -28,15 +31,17 @@ function AmountInput({ value, setValue, disabled }) {
                   setValue(value / 2);
                 } else if (amount === '2x') {
                   setValue(value * 2);
-                } else if (amount === '5x') {
-                  setValue(value * 5);
+                } else if (amount === 'Min') {
+                  setValue(1);
+                } else if (amount === 'Max') {
+                  setValue(Number(balance.toFixed(2)));
                 }
               }}
-              className={`bg-base-200/60 text-white font-semibold aspect-square flex items-center justify-center ${
-                amount === '1/2'
-                  ? 'rounded-l-xl'
-                  : amount === '5x'
-                  ? 'rounded-r-xl'
+              className={`bg-base-200 active:scale-[99%] px-4 text-white font-semibold flex items-center justify-center ${
+                amount === 'Max'
+                  ? 'rounded-br-xl'
+                  : amount === '2x'
+                  ? 'rounded-tr-xl'
                   : ''
               }`}
             >

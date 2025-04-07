@@ -2,11 +2,7 @@
 
 import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
-import {
-  UserIcon,
-  SpeakerWaveIcon,
-  SpeakerXMarkIcon,
-} from '@heroicons/react/24/solid';
+import { UserIcon, ClockIcon } from '@heroicons/react/24/solid';
 import Modal from './Modal';
 import EthLogo from './EthLogo';
 import DepositWithdraw from './DepositWithdraw';
@@ -15,8 +11,12 @@ import { useGameContext } from '../games/layout';
 import { icons } from '../web3/constants';
 import AnimatedNumber from './AnimatedNumber';
 import ProfileModal from './ProfileModal';
+import { useRouter, usePathname } from 'next/navigation';
+import BackLink from './BackLink';
 
 function Header() {
+  const router = useRouter();
+  const pathname = usePathname();
   const { authData, balance, gameSettings, setGameSettings } = useGameContext();
 
   const { isConnected } = useAccount();
@@ -45,16 +45,21 @@ function Header() {
               <WalletIcon className='w-4 h-4 -ml-2' />
               {address.slice(0, 6)}...{address.slice(-4)}
             </button> */}
-            <div className='flex items-center gap-1'>
-              <EthLogo className='w-8 h-8' />
-              <h1 className=' font-bold text-white'>ETHMINER</h1>
-            </div>
+            {pathname == '/games' ? (
+              <div className='flex items-center gap-1'>
+                <EthLogo className='w-8 h-8' />
+                <h1 className=' font-bold text-white'>ETHMINER</h1>
+              </div>
+            ) : (
+              <BackLink />
+            )}
 
             <div
               onClick={() =>
                 setGameSettings({
                   ...gameSettings,
                   depositWithdrawModalOpen: true,
+                  depositWithdrawModalType: 'Deposit',
                 })
               }
               className={`button button-sm ml-auto flex  items-center gap-2`}
@@ -79,7 +84,7 @@ function Header() {
               }
               disabled={status !== 'idle'}
             >
-              {status === 'idle' ? 'Sign In' : 'Signing In...'}
+              {status === 'idle' ? 'Connect Wallet' : 'Connecting'}
             </button>
           </>
         )}
@@ -95,6 +100,16 @@ function Header() {
             className='rounded-lg button button-icon'
           >
             <UserIcon className='text-primary w-6 h-6' />
+          </button>
+        )}
+        {isConnected && authData && (
+          <button
+            onClick={() => {
+              router.push('/games/mybets');
+            }}
+            className='rounded-lg button button-icon'
+          >
+            <ClockIcon className='text-primary w-6 h-6' />
           </button>
         )}
       </header>
@@ -143,16 +158,20 @@ function Header() {
                     disabled={status !== 'idle'}
                   >
                     <div className=' relative overflow-visible'>
-                      <img
-                        src={icons[connector.name]}
-                        alt={connector.name}
-                        className='w-8 h-8'
-                      />
-                      <img
-                        src={icons[connector.name]}
-                        alt={connector.name}
-                        className='w-8 h-8 absolute top-0 left-0 blur-lg'
-                      />
+                      {icons[connector.name] && (
+                        <>
+                          <img
+                            src={icons[connector.name]}
+                            alt={connector.name}
+                            className='w-8 h-8'
+                          />
+                          <img
+                            src={icons[connector.name]}
+                            alt={connector.name}
+                            className='w-8 h-8 absolute top-0 left-0 blur-lg'
+                          />
+                        </>
+                      )}
                     </div>
 
                     {status === 'idle' ? connector.name : 'Signing In...'}

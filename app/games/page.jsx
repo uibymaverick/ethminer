@@ -43,11 +43,12 @@ function page() {
         setResult(getResultFromResponse(responseData.data));
         playSound('bet');
       } else {
-        throw new Error('Failed to place bet');
+        throw new Error(responseData.message || 'Failed to place bet');
       }
     } catch (error) {
       console.error('Error placing bet:', error);
-      Notify.failure('Failed to place bet');
+      Notify.failure(error.message || 'Failed to place bet');
+
       setResult({
         isPlaying: false,
         placingBet: false,

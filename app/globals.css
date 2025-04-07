@@ -52,11 +52,11 @@
   @apply bg-gradient-to-r text-black shadow-[0_0_35px_rgba(0,0,0,0.3)] shadow-warning/40 from-warning to-warning;
 }
 .button-gradient {
-  @apply bg-gradient-to-r  shadow-[0_0_35px_rgba(0,0,0,0.3)] shadow-primary/40 from-primary via-info to-success border-transparent;
+  @apply bg-gradient-to-r  shadow-[0_0_35px_rgba(0,0,0,0.3)] shadow-primary/40 from-primary via-info to-success border-base-100;
 }
 /* inputs */
 .input {
-  @apply transition-all bg-base-200/40 focus:outline-none focus:border-base-100 duration-300 py-4 px-6 text-white font-semibold backdrop-blur-sm rounded-2xl border-2 border-base-100/50;
+  @apply transition-all bg-base-200/40 focus:outline-none focus:border-base-100 duration-300 py-4 px-6 text-white font-semibold backdrop-blur-sm rounded-2xl border-2 border-base-200;
 }
 
 .input-sm {
@@ -90,4 +90,9 @@
 
 .shadow-all-2xl {
   @apply shadow-[0_0_65px_rgba(0,0,0,0.4)];
+}
+
+/* notiflix */
+#NotiflixNotify {
+  @apply text-center;
 }

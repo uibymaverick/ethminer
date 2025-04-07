@@ -1,6 +1,8 @@
 export const icons = {
     MetaMask: '/icons/MetaMask.png',
     WalletConnect: '/icons/WalletConnect.png',
+    Coinbase: '/icons/Coinbase.png',
+    'Brave Wallet': '/icons/Brave.png',
 };
 export const availableTokens = [
     {

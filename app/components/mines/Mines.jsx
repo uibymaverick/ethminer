@@ -149,7 +149,7 @@ function Mines({ betData, setBetData, result, setResult, placeBet }) {
 
   useEffect(() => {
     setBetData({
-      mines: 4,
+      mines: 3,
     });
   }, []);
 
@@ -305,7 +305,11 @@ function Mines({ betData, setBetData, result, setResult, placeBet }) {
     <>
       <div className='gap-2 flex-grow items-center justify-center flex flex-col'>
         <NumberReel result={result} active={gameState.active} />
-        <div className='relative grid grid-cols-5 overflow-hidden rounded-sm bg-base-200/80 p-0.5 gap-0.5 w-5/6 aspect-square'>
+        <div
+          className={`relative grid grid-cols-5 overflow-hidden rounded-sm bg-base-200/80 p-0.5 gap-0.5 w-5/6 aspect-square ${
+            result.isPlaying ? 'animate__animated animate__headShake' : ''
+          }`}
+        >
           {containers?.map((container) => (
             <div
               key={container.id}
@@ -332,11 +336,16 @@ function Mines({ betData, setBetData, result, setResult, placeBet }) {
               </div>
             </div>
           ))}
-          <span className='absolute top-0 left-0  w-2/3 aspect-square z-0 bg-info/30 blur-2xl animate-[spin_20s_linear_infinite] origin-bottom-right'></span>
-          <span className='absolute top-0 right-0  w-1/2 aspect-square z-0 bg-error/30 blur-2xl animate-[spin_25s_linear_infinite] origin-bottom-left'></span>
-          <span className='absolute bottom-0 left-0  w-1/2 aspect-square z-0 bg-success/30 blur-2xl animate-[spin_30s_linear_infinite] origin-top-right'></span>
-          <span className='absolute bottom-0 right-0  w-1/2 aspect-square z-0 bg-info/30 blur-2xl animate-[spin_35s_linear_infinite] origin-top-left'></span>
-          <span className='absolute top-0 left-1/2 -translate-x-1/2   w-2/3 aspect-square z-0 bg-error/30 blur-2xl animate-[spin_35s_linear_infinite] origin-bottom-left'></span>
+          <span className='absolute top-0 left-0 w-full aspect-square z-0 bg-info blur-2xl animate-[spin_5s_linear_infinite] origin-bottom-right'></span>
+          <span className='absolute top-0 right-0 w-full aspect-square z-0 bg-error blur-2xl animate-[spin_6s_linear_infinite] origin-bottom-left'></span>
+          <span className='absolute bottom-0 left-0 w-full aspect-square z-0 bg-success blur-2xl animate-[spin_7s_linear_infinite] origin-top-right'></span>
+          <span className='absolute bottom-0 right-0 w-full aspect-square z-0 bg-info blur-2xl animate-[spin_8s_linear_infinite] origin-top-left'></span>
+          <span className='absolute top-0 left-1/2 -translate-x-1/2 w-full aspect-square z-0 bg-error blur-2xl animate-[spin_9s_linear_infinite] origin-bottom-left'></span>
+          <span className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-square z-0 bg-warning blur-2xl animate-[spin_10s_linear_infinite] origin-center'></span>
+          <span className='absolute top-0 left-0 w-full aspect-square z-0 bg-primary blur-2xl animate-[spin_4s_linear_infinite] origin-center'></span>
+          <span className='absolute bottom-0 right-0 w-full aspect-square z-0 bg-info blur-2xl animate-[spin_7s_linear_infinite] origin-center'></span>
+          <span className='absolute top-0 right-0 w-full aspect-square z-0 bg-success blur-2xl animate-[spin_8s_linear_infinite] origin-bottom'></span>
+          <span className='absolute bottom-0 left-0 w-full aspect-square z-0 bg-error blur-2xl animate-[spin_5s_linear_infinite] origin-top'></span>
         </div>
       </div>
       <NumberOfGems

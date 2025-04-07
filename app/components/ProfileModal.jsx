@@ -9,13 +9,16 @@ import {
   SpeakerXMarkIcon,
 } from '@heroicons/react/24/solid';
 import crypto from 'node:crypto';
+import { useRouter } from 'next/navigation';
 function ProfileModal() {
+  const router = useRouter();
   const { address, isConnected } = useAccount();
   const { balance, gameSettings, setGameSettings } = useGameContext();
   const { disconnect } = useDisconnect();
 
   return (
     <Modal
+      important
       open={gameSettings.profileModalOpen}
       setOpen={() =>
         setGameSettings({ ...gameSettings, profileModalOpen: false })
@@ -43,7 +46,7 @@ function ProfileModal() {
                 setGameSettings({
                   ...gameSettings,
                   depositWithdrawModalOpen: true,
-                  depositWithdrawModalType: 'deposit',
+                  depositWithdrawModalType: 'Deposit',
                   profileModalOpen: false,
                 });
               }}
@@ -128,7 +131,9 @@ function ProfileModal() {
               profileModalOpen: false,
             });
             localStorage.clear();
+
             disconnect();
+            router.push('/');
           }}
           className='rounded-lg mt-auto button button-error'
         >

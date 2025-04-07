@@ -22,9 +22,10 @@ function GamesLayout({ children }) {
             sound: true,
             music: true,
             depositWithdrawModalOpen: false,
-            depositWithdrawModalType: 'deposit',
+            depositWithdrawModalType: 'Deposit',
             profileModalOpen: false,
             signInModalOpen: false,
+            myBetsModalOpen: false,
             clientSeed: crypto.randomBytes(8).toString('hex'),
         },
     });
@@ -56,8 +57,8 @@ function GamesLayout({ children }) {
             useIcon: false,
             position: 'center-top', // Set the position of notifications
             backOverlay: false,
-            borderRadius: '12px',
-            fontFamily: 'Inter',
+            borderRadius: '14px',
+            fontFamily: 'Chivo',
             fontSize: '16px',
             timeout: 1600,
             useFontAwesome: false, // Whether to use fontawesome icons for the notifications
@@ -67,24 +68,24 @@ function GamesLayout({ children }) {
             cssAnimationDuration: 300,
             messageMaxLength: 110,
             success: {
-                background: 'linear-gradient(to right,#16a34a, #22c55e)',
-                textColor: '#fff',
-                fontWeight: 'bold',
+                background: '#55f6c8',
+                textColor: '#000000',
+                childClassName: 'flex justify-center text-center',
             },
             failure: {
-                background: 'linear-gradient(to right, #dc2626,#ef4444)',
-                textColor: '#fff',
-                fontWeight: 'bold',
+                background: '#f985cd',
+                textColor: '#000000',
+                childClassName: 'flex justify-center text-center',
             },
             warning: {
-                background: 'linear-gradient(to right, #ea580c,#f97316)',
-                textColor: '#fff',
-                fontWeight: 'bold',
+                background: '#f9ac85',
+                textColor: '#000000',
+                childClassName: 'flex justify-center text-center',
             },
             info: {
-                background: 'linear-gradient(to right, #2563eb, #3b82f6)',
-                textColor: '#fff',
-                fontWeight: 'bold',
+                background: '#6896f7',
+                textColor: '#000000',
+                childClassName: 'flex justify-center text-center',
             },
         });
     }, [])

@@ -33,18 +33,21 @@ function Modal({
               hFit ? 'h-fit' : 'h-full'
             }`}
           >
-            <div
-              onClick={() => setOpen(false)}
-              className='flex font-bold items-center w-full text-2xl max-w-lg pb-2 pl-2 text-white justify-between'
-            >
+            <div className='flex font-bold items-center w-full text-2xl max-w-lg pb-2 pl-2 text-white justify-between'>
               {title && title}
               {!hideX && (
-                <button onClick={() => setOpen()} className='text-base-100'>
-                  <XCircleIcon className='w-8 h-8' />
+                <button
+                  onClick={() => setOpen(false)}
+                  className='text-sm text-error bg-error/10 px-3 py-1 rounded-full'
+                >
+                  {/* <XCircleIcon className='w-8 h-8' /> */}
+                  Close
                 </button>
               )}
             </div>
-            <div className='flex-grow overflow-y-auto'>{children}</div>
+            <div className='flex-grow overflow-y-auto scrollbar-none'>
+              {children}
+            </div>
           </div>
         )}
       </div>,
