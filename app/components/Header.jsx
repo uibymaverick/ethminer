@@ -53,7 +53,6 @@ function Header() {
             ) : (
               <BackLink />
             )}
-
             <div
               onClick={() =>
                 setGameSettings({
