@@ -7,8 +7,11 @@ import { Notify } from 'notiflix';
 import { useGameContext } from './layout';
 import { apiEndPoints } from './constants';
 import useSound from '../hooks/useSound';
+import { useAccount } from 'wagmi';
 function page() {
-  const { authData, updateBalance, gameSettings } = useGameContext();
+  const { authData, updateBalance, gameSettings, setGameSettings } =
+    useGameContext();
+  const { isConnected } = useAccount();
   const { playSound } = useSound();
   const [betData, setBetData] = useSetState({
     amount: '1',
@@ -23,6 +26,13 @@ function page() {
 
   const placeBetRequest = useCallback(async () => {
     try {
+      if (!isConnected) {
+        setGameSettings({
+          ...gameSettings,
+          signInModalOpen: true,
+        });
+        return;
+      }
       setResult({
         isPlaying: false,
         placingBet: true,

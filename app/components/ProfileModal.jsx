@@ -9,9 +9,7 @@ import {
   SpeakerXMarkIcon,
 } from '@heroicons/react/24/solid';
 import CryptoJS from 'crypto-js';
-import { useRouter } from 'next/navigation';
 function ProfileModal() {
-  const router = useRouter();
   const { address, isConnected } = useAccount();
   const { balance, gameSettings, setGameSettings } = useGameContext();
   const { disconnect } = useDisconnect();
@@ -131,9 +129,8 @@ function ProfileModal() {
               profileModalOpen: false,
             });
             localStorage.clear();
-
             disconnect();
-            router.push('/');
+            window.location.reload();
           }}
           className='rounded-lg mt-auto button button-error'
         >
