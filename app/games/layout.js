@@ -20,7 +20,7 @@ function GamesLayout({ children }) {
         key: 'gameSettings',
         defaultValue: {
             sound: true,
-            music: true,
+            music: false,
             depositWithdrawModalOpen: false,
             depositWithdrawModalType: 'Deposit',
             profileModalOpen: false,

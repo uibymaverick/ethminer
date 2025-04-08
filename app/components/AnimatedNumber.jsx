@@ -20,8 +20,8 @@ function AnimatedNumber({
     setAnimating(true);
     setIncreasing(difference > 0);
 
-    const totalSteps = 100;
-    const increment = difference / 100;
+    const totalSteps = 50;
+    const increment = difference / totalSteps;
     let currentStep = 0;
 
     setDisplayNumber(startNumber);
