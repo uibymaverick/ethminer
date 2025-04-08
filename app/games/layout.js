@@ -7,7 +7,7 @@ import Header from '../components/Header'
 import Notiflix from 'notiflix'
 import { apiEndPoints } from './constants'
 import { useLocalStorage } from '@mantine/hooks'
-import crypto from 'node:crypto'
+import CryptoJS from 'crypto-js'
 const queryClient = new QueryClient()
 
 const gameContext = createContext()
@@ -26,11 +26,12 @@ function GamesLayout({ children }) {
             profileModalOpen: false,
             signInModalOpen: false,
             myBetsModalOpen: false,
-            clientSeed: crypto.randomBytes(8).toString('hex'),
+            clientSeed: CryptoJS.lib.WordArray.random(8).toString(),
         },
     });
 
     const updateBalance = useCallback(async () => {
+        if (!authData) return
         const response = await fetch(apiEndPoints.balance, {
             method: 'GET',
             headers: {
@@ -43,9 +44,7 @@ function GamesLayout({ children }) {
     }, [authData]);
 
     useEffect(() => {
-        if (authData?.balance) {
-            updateBalance()
-        }
+        updateBalance()
     }, [authData])
 
     useEffect(() => {

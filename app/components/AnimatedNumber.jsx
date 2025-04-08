@@ -5,16 +5,23 @@ function AnimatedNumber({
   speed = 10,
   startFromZero = false,
   animateOn = true,
+  changeColor = false,
 }) {
   const [displayNumber, setDisplayNumber] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const [increasing, setIncreasing] = useState(false);
 
   useEffect(() => {
     if (number === 0 || number === null || number === undefined) return;
     const startNumber = startFromZero ? 0 : displayNumber;
     const difference = number - startNumber;
     if (difference === 0) return;
-    const increment = difference / 10; // Calculate increment as difference/10
-    const totalSteps = 10; // Fixed 10 steps
+
+    setAnimating(true);
+    setIncreasing(difference > 0);
+
+    const totalSteps = 100;
+    const increment = difference / 100;
     let currentStep = 0;
 
     setDisplayNumber(startNumber);
@@ -23,6 +30,7 @@ function AnimatedNumber({
       if (currentStep >= totalSteps) {
         clearInterval(interval);
         setDisplayNumber(number);
+        setAnimating(false);
         return;
       }
 
@@ -30,10 +38,24 @@ function AnimatedNumber({
       currentStep++;
     }, speed); // Fixed 50ms interval for smooth animation
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      setAnimating(false);
+    };
   }, [number, animateOn]);
 
-  return <>{displayNumber.toFixed(2)}</>;
+  const textColor =
+    changeColor && animating
+      ? increasing
+        ? 'text-success scale-110'
+        : 'text-error scale-110'
+      : '';
+
+  return (
+    <span className={`${textColor} transition-all duration-300`}>
+      {displayNumber.toFixed(2)}
+    </span>
+  );
 }
 
 export default memo(AnimatedNumber);

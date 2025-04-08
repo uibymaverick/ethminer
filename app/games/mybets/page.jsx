@@ -70,66 +70,77 @@ function page() {
           }}
           className='w-full flex-1 overflow-y-auto flex flex-col gap-2 py-8'
         >
-          {bets?.data?.map((bet) => (
-            <div
-              key={bet._id}
-              className='w-full relative bg-base-200/40 border-2 border-base-200/20 text-white rounded-xl flex flex-col'
-            >
-              <button
-                onClick={() => {
-                  setSelectedBet({ id: bet._id, open: true });
-                }}
-                className='absolute z-50 top-1 right-1 text-xs text-primary bg-primary/10 px-3 py-1 rounded-lg'
-              >
-                Details
-              </button>
-              <div className='flex flex-col text-xs px-3 py-2 '>
-                <span className={`font-semibold opacity-70`}>#{bet?._id}</span>
-                <span className='opacity-50'>
-                  {new Date(bet.createdAt).toLocaleDateString('en-US', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </span>
-              </div>
-
-              <div className='grid grid-cols-3 gap-1 p-1 justify-between items-center'>
-                {[
-                  {
-                    label: 'Bet Amount',
-                    value: bet.betAmount.toFixed(2),
-                    color: 'text-white',
-                  },
-                  {
-                    label: 'Odds',
-                    value: bet.odds,
-                    color: 'text-white',
-                  },
-                  {
-                    label: bet.status === 'WON' ? 'Win' : 'Loss',
-                    value:
-                      bet.status === 'WON'
-                        ? bet.winAmount.toFixed(2)
-                        : bet.betAmount.toFixed(2),
-                    color: bet.status === 'WON' ? 'text-success' : 'text-error',
-                  },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className='flex flex-col px-3 py-1 items-center rounded-lg flex-1 bg-base-200/40'
-                  >
-                    <span className='text-[10px] opacity-50'>{item.label}</span>
-                    <span className={`text-xs font-semibold ${item.color}`}>
-                      {item.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
+          {bets?.data?.length === 0 && !bets.loading && !bets.error ? (
+            <div className='flex text-xl font-bold text-white justify-center items-center'>
+              <span className='opacity-50'>No bets found</span>
             </div>
-          ))}
+          ) : (
+            bets?.data?.map((bet) => (
+              <div
+                key={bet._id}
+                className='w-full relative bg-base-200/40 border-2 border-base-200/20 text-white rounded-xl flex flex-col'
+              >
+                <button
+                  onClick={() => {
+                    setSelectedBet({ id: bet._id, open: true });
+                  }}
+                  className='absolute z-50 top-1 right-1 text-xs text-primary bg-primary/10 px-3 py-1 rounded-lg'
+                >
+                  Details
+                </button>
+                <div className='flex flex-col text-xs px-3 py-2 '>
+                  <span className={`font-semibold opacity-70`}>
+                    #{bet?._id}
+                  </span>
+                  <span className='opacity-50'>
+                    {new Date(bet.createdAt).toLocaleDateString('en-US', {
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </span>
+                </div>
+
+                <div className='grid grid-cols-3 gap-1 p-1 justify-between items-center'>
+                  {[
+                    {
+                      label: 'BET AMOUNT',
+                      value: bet.betAmount.toFixed(2),
+                      color: 'text-white',
+                    },
+                    {
+                      label: 'ODDS',
+                      value: bet.odds.toFixed(2),
+                      color: 'text-white',
+                    },
+                    {
+                      label: bet.status === 'WON' ? 'WIN' : 'LOSS',
+                      value:
+                        bet.status === 'WON'
+                          ? bet.winAmount.toFixed(2)
+                          : bet.betAmount.toFixed(2),
+                      color:
+                        bet.status === 'WON' ? 'text-success' : 'text-error',
+                    },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className='flex flex-col px-3 py-1 items-center rounded-lg flex-1 bg-base-200/40'
+                    >
+                      <span className='text-[10px] opacity-50'>
+                        {item.label}
+                      </span>
+                      <span className={`text-xs font-semibold ${item.color}`}>
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          )}
           {bets.loading && (
             <div className='flex text-xl font-bold text-white justify-center items-center'>
               <span className='opacity-50'>Loading</span>

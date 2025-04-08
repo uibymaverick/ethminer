@@ -8,7 +8,7 @@ import {
   SpeakerWaveIcon,
   SpeakerXMarkIcon,
 } from '@heroicons/react/24/solid';
-import crypto from 'node:crypto';
+import CryptoJS from 'crypto-js';
 import { useRouter } from 'next/navigation';
 function ProfileModal() {
   const router = useRouter();
@@ -76,7 +76,7 @@ function ProfileModal() {
               onClick={() => {
                 setGameSettings({
                   ...gameSettings,
-                  clientSeed: crypto.randomBytes(8).toString('hex'),
+                  clientSeed: CryptoJS.lib.WordArray.random(8).toString(),
                 });
               }}
               className='rounded-lg button'

@@ -62,9 +62,9 @@ function Header() {
                   depositWithdrawModalType: 'Deposit',
                 })
               }
-              className={`button button-sm ml-auto flex  items-center gap-2`}
+              className={`button button-sm ml-auto flex items-center gap-2`}
             >
-              <AnimatedNumber number={balance} />
+              <AnimatedNumber number={balance} changeColor />
             </div>
           </>
         ) : (
